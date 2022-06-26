@@ -1,7 +1,6 @@
-import React from "react";
+import React, {Component} from "react";
 import Location from "./Location";
 import WeatherData from "./WeatherData";
-import PropTypes from "prop-types";
 
 const data = {
     temperature: 20,
@@ -9,15 +8,29 @@ const data = {
     wind: 10
 }
 
-const WeatherLocation = () => (
-    <div>
-        <Location city="Cubelles" />
-        <WeatherData data={data} />
-    </div>
-);
-
-WeatherLocation.propTypes = {
-    city: PropTypes.string.isRequired
-};
+class WeatherLocation extends Component {
+    constructor() {
+        super();
+        this.state = {
+            city: 'Barcelona',
+            data
+        };
+    }
+    handleUpdateClick = () => {
+        this.setState({
+            city: 'Tenerife'
+        });
+    }
+    render() {
+        const {city, data} = this.state;
+        return (
+            <div>
+                <Location city={city} />
+                <WeatherData data={data} />
+                <button className="button" onClick={this.handleUpdateClick}>Update</button>
+            </div>
+        );
+    }
+}
 
 export default WeatherLocation;
