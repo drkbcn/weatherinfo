@@ -1,31 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
 import WeatherIcons from 'react-weathericons';
-import {
-    SUN, CLOUD, CLOUDY, FOG, RAIN, SNOW, WINDY, STORM
-} from '../../../constants/weathers';
+import {SUN, WEATHERS} from '../../../constants/weathers';
 
-const getWeatherIcon = (weatherState) => {
-    const {icon} = weatherState;
-    const {color} = weatherState;
+const getWeatherIcon = (api_icon) => {
+    const resolveWeatherState = () => {
+        return  WEATHERS.find(weather => weather.api_icon === api_icon);
+    }
+
+    const {icon, color} = resolveWeatherState;
     return <WeatherIcons className={color ?? SUN.color} name={icon ?? SUN.icon} size="2x"/>
 };
 
-const WeatherTemperature = ({temperature, weatherState}) => {
+const WeatherTemperature = ({temperature, feelsLike, icon}) => {
     return (
         <div>
             {
-                getWeatherIcon(weatherState)
+                getWeatherIcon(icon)
             }
             <div className="weather-temperature">
-                {`${temperature}`}ºC
+                {`${temperature}`}ºC (Feels Like: {`${feelsLike}`}ºC)
             </div>
         </div>
     );
 };
 
 WeatherTemperature.propTypes = {
-    temperature: PropTypes.number.isRequired
+    temperature: PropTypes.number.isRequired,
+    feelsLike: PropTypes.number.isRequired
 };
 
 export default WeatherTemperature;

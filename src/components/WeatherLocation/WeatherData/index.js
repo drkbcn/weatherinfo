@@ -2,16 +2,14 @@ import React from 'react';
 import WeatherExtraInfo from './WeatherExtraInfo';
 import WeatherTemperature from './WeatherTemperature';
 import PropTypes from 'prop-types';
-import {
-    SUN, CLOUD, CLOUDY, FOG, RAIN, SNOW, WINDY, STORM
-} from '../../../constants/weathers';
 
-const WeatherData = ({ data: {temperature, humidity, wind }}) => {
+const WeatherData = ({ data: {temperature, feelsLike, humidity, wind }, icon}) => {
     return (
         <div className="weather-data">
             <WeatherTemperature
-                weatherState={SUN} 
-                temperature={temperature} 
+                icon={icon} 
+                temperature={temperature}
+                feelsLike={feelsLike}
             />
             <WeatherExtraInfo humidity={humidity} wind={wind} />
         </div>
